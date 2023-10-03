@@ -28,7 +28,7 @@ Additionally the Compiler will be able to assign initial values to the Data Memo
 
 ### Instruction Set
 
-The instruction set is planned to encompass 9 Instructions. The instructions are listed below:
+The instruction set is planned to encompass 10 Instructions. The instructions are listed below:
 - `ADD x` - Add the value at memory address `x` to the accumulator
 - `SUB x` - Subtract the value at memory address `x` from the accumulator
 - `STA x` - Store the value of the accumulator at memory address `x`
@@ -38,9 +38,7 @@ The instruction set is planned to encompass 9 Instructions. The instructions are
 - `JMP x` - Jump to instruction at memory address `x`
 - `JMZ x` - Jump to instruction at memory address `x` if the accumulator is zero
 - `HLT`   - Halt the program
-
-Additionally the compiler will be able to assign initial values to the Data Memory using the following instruction
-- `DAT x y` - Store the value `y` at memory address `x`
+- `DAT x y` - Store the 8-bit value `y` at 8-bit memory address `x`
 
 #### Instruction Encoding
 
@@ -57,10 +55,9 @@ Instructions are encoded as hexadecimal values. The encoding is planned to be th
 | `JMP`       | `0b0001 0000` |
 | `JMZ`       | `0b0010 0000` |
 | `HLT`       | `0b1111 1111` |
+| `DAT`       | `0b0101 1010` |
 
 The instructions will consist of 1 16-bit verb and 1 16-bit argument. The verb will be the first 16 bits of the instruction, the argument will be the last 16 bits of the instruction.
-
-The `DAT` instruction will be encoded as `0b0101 1010`.
 
 #### Future Expansion
 
