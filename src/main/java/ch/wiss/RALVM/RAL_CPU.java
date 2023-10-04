@@ -1,16 +1,32 @@
 package ch.wiss.RALVM;
 
+/**
+ * The RAL_CPU class represents a RAL CPU (Random Access Language).
+ * It executes instructions stored in the program memory and updates the
+ * data memory and accumulator according to the instructions.
+ */
 public class RAL_CPU {
     private int[] programMemory;
     private int[] dataMemory;
     private int accumulator = 0;
     private int programCounter = 0;
 
+    /**
+     * Constructs a new RAL_CPU object with the given program memory.
+     *
+     * @param programMemory the program memory to be used by the RAL_CPU object
+     */
     public RAL_CPU(int[] programMemory) {
         this.programMemory = programMemory;
         this.dataMemory = new int[1024];
     }
 
+    /**
+     * Executes the program stored in the program memory.
+     * It iterates through each instruction in the program memory,
+     * decodes the instruction, and performs the appropriate operation based on the instruction.
+     * After executing the program, it prints the contents of the data memory.
+     */
     public void run() {
         while(programCounter < programMemory.length) {
             int[] currentInstruction = decodeInstruction();
@@ -48,6 +64,12 @@ public class RAL_CPU {
         printMemory();
     }
 
+    /**
+     * Decodes the instruction at the current program counter.
+     * Retrieves each byte of the instruction from the program memory and stores them in an integer array.
+     *
+     * @return An integer array that represents the decoded instruction.
+     */
     private int[] decodeInstruction() {
         int[] instruction = new int[4];
         instruction[0] = (programMemory[programCounter] & 0xFF000000) >> 24;
@@ -57,6 +79,13 @@ public class RAL_CPU {
         return instruction;
     }
 
+    /**
+     * Prints the contents of the program memory and data memory.
+     * The program memory is printed in rows of the specified rowSize,
+     * with each row starting with the memory address in hexadecimal format
+     * and followed by the corresponding value in hexadecimal format.
+     * The data memory is printed in the same format.
+     */
     private void printMemory() {
         int rowSize = 16; // change this to modify the row size
         System.out.println("Program Memory:");
@@ -78,6 +107,12 @@ public class RAL_CPU {
         }
     }
 
+    /**
+     * Returns the instruction associated with the given opcode.
+     *
+     * @param opcode The opcode of the instruction.
+     * @return The instruction associated with the given opcode, or null if no matching instruction is found.
+     */
     private Instructions getInstruction(int opcode) {
         for (Instructions instruction : Instructions.values()) {
             if (instruction.getOpcode() == opcode) {

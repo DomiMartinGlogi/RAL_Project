@@ -91,4 +91,42 @@ The Data Memory has no special structure and purely contains 32-bit unsigned int
 
 ![RAL_Compiler-Function Diagram.drawio.png](mdRessources%2Fimg%2FRAL_Compiler-Function%20Diagram.drawio.png)
 
+#### Class Diagram
+
+![RAL_Compiler-Class Diagram.png](mdRessources%2FRAL_Compiler-Class%20Diagram.png)
+
 ### CPU
+
+#### Functional Diagram
+
+# Tools Used
+
+This project uses the following software tools:
+
+### Integrated Development Environment (IDE):
+
+- [IntelliJ IDEA 2023.2.2 Ultimate Edition](https://www.jetbrains.com/idea/download/): A capable and ergonomic Java IDE for professional developers.
+
+### Programming Languages:
+
+- [Java](https://www.oracle.com/java/technologies/javase-jdk20-downloads.html): This project is written in Java, using Java SDK version 20.
+
+### Assistive Tools:
+
+- [JetBrains AI Assistant](https://www.jetbrains.com/lp/ai-assistant/): An AI-powered coding assistant that provides coding assistance within IntelliJ IDEA.
+- [Github Copilot](https://copilot.github.com/): An AI-powered code completion tool that learns from the code you write.
+
+AI tools have been used solely for Debugging Purposes and Code Suggestions, design work has been fulfilled by human hand (and mind). 
+
+# Libraries Used
+
+This project makes use of the following libraries:
+
+### [Apache Commons Lang](https://commons.apache.org/proper/commons-lang/):
+A project focused on all aspects of reusable Java components that provides a host of helper utilities for the java.lang API.
+
+### [JUnit](https://junit.org/junit5/):
+A simple and open-source framework to write repeatable tests. It is an instance of the xUnit architecture for unit testing frameworks.
+
+### [Jansi](https://jansi.fusesource.org/):
+Jansi is a small java library that allows you to use ANSI escape sequences to format your console output which works even on Windows.

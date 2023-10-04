@@ -6,8 +6,17 @@ import java.util.Scanner;
 import static org.fusesource.jansi.Ansi.Color.RED;
 import static org.fusesource.jansi.Ansi.ansi;
 
+/**
+ * The RALVM class represents a simple virtual machine that executes programs stored in a file.
+ * It provides a static method to run a program.
+ */
 public class RALVM {
 
+    /**
+     * Parses a file and executes the program on an RAL_CPU.
+     *
+     * @param file the file to parse and execute
+     */
     public static void run(String file) {
         System.out.println("Parsing " + file);
 
@@ -38,6 +47,11 @@ public class RALVM {
         cpu0.run();
     }
 
+    /**
+     * Handles errors by displaying an error message, waiting for user input, and exiting the program.
+     *
+     * @param message the error message to display
+     */
     private static void errorHandler(String message) {
         System.out.println(ansi().fg(RED).a(message).reset());
         Scanner scanner = new Scanner(System.in);

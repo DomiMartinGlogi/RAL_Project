@@ -11,11 +11,19 @@ import java.util.Map;
 import java.util.Scanner;
 
 
+/**
+ * A class that represents a compiler for a specific programming language.
+ * The compiler can parse an input file, compile it, and generate an output file with compiled code.
+ */
 public class Compiler {
     private static File inputFile = new File("program.txt");
     private static File outputFile = new File("program.txt");
     private static int lineNumber = 0;
 
+    /**
+     * Represents the instruction set used in the program.
+     * Each instruction is mapped to its corresponding binary representation.
+     */
     private static Map<String, Integer> instructionSet = Map.ofEntries(
             Map.entry("ADD", 0b1000_0000),
             Map.entry("SUB", 0b0100_0000),
@@ -30,8 +38,10 @@ public class Compiler {
 
 
     /**
-     * @brief Compiles the input file
-     * @param file The input file
+     * Compiles an input file and generates an output file.
+     * Uses ANSI console to display compiler information.
+     *
+     * @param file The path of the input file.
      */
     public static void compile(String file) {
         AnsiConsole.systemInstall();
@@ -70,8 +80,9 @@ public class Compiler {
     }
 
     /**
-     * @brief Handles errors
-     * @param message The error message
+     * Handles an error by displaying the error message, waiting for user input, and exiting the program.
+     *
+     * @param message The error message to display.
      */
     private static void errorHandler(String message) {
         System.out.println(ansi().fg(RED).a(message).reset());
@@ -81,9 +92,10 @@ public class Compiler {
     }
 
     /**
-     * @brief Parses the input line and returns the parsed result.
-     * @param line The line to parse.
-     * @return The parsed line.
+     * Parses a line of assembly code and returns the corresponding hexadecimal instruction.
+     *
+     * @param line The line of assembly code to parse.
+     * @return The hexadecimal instruction.
      */
     private static @NotNull String parseLine(@NotNull String line) {
         if (line.length() == 0 || line.startsWith("\n")) {
@@ -132,12 +144,26 @@ public class Compiler {
         return result;
     }
 
+    /**
+     * Validates the argument for a given instruction on a specific line of assembly code.
+     *
+     * @param instruction The instruction for which the argument is being validated.
+     * @param argument    The argument to validate.
+     * @param argNumber   The number of the argument being validated.
+     */
     private static void validateArgument(String instruction, String argument, String argNumber) {
         if (argument.isEmpty()) {
             errorHandler("Missing argument " + argNumber + " on line " + lineNumber + " for instruction " + instruction + ".");
         }
     }
 
+    /**
+     * Converts an instruction and an address argument into a hexadecimal value.
+     *
+     * @param instruction The instruction to convert.
+     * @param addressArg  The address argument to convert.
+     * @return The hexadecimal value obtained from the conversion.
+     */
     private static int getHexValue(String instruction, String addressArg) {
         int resultHex = instructionSet.get(instruction);
         resultHex <<= 8;
@@ -146,6 +172,14 @@ public class Compiler {
         return resultHex;
     }
 
+    /**
+     * Converts an instruction, an address argument, and a data argument into a hexadecimal value.
+     *
+     * @param instruction The instruction to convert.
+     * @param addressArg  The address argument to convert.
+     * @param dataArg     The data argument to convert.
+     * @return The hexadecimal value obtained from the conversion.
+     */
     private static int getHexValueWithData(String instruction, String addressArg, String dataArg) {
         int resultHex = getHexValue(instruction, addressArg);
         resultHex <<= 8;
