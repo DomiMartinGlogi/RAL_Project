@@ -1,5 +1,7 @@
 package ch.wiss.RALVM;
 
+import java.util.ArrayList;
+
 /**
  * The RAL_CPU class represents a RAL CPU (Random Access Language).
  * It executes instructions stored in the program memory and updates the
@@ -10,6 +12,9 @@ public class RAL_CPU {
     private int[] dataMemory;
     private int accumulator = 0;
     private int programCounter = 0;
+
+    ArrayList<Integer> touchedProgMemory = new ArrayList<>();
+    ArrayList<Integer> touchedDataMemory = new ArrayList<>();
 
     /**
      * Constructs a new RAL_CPU object with the given program memory.
@@ -36,6 +41,26 @@ public class RAL_CPU {
                 System.out.println("Undefined Instruction: " + currentInstruction[1] + " at Program Counter : " + programCounter);
                 break;
             }
+
+            // Adding memory locations that we actually access to the tracking Array Lists
+
+            if (!touchedProgMemory.contains(programCounter)) {
+                touchedProgMemory.add(programCounter);
+            }
+
+            if (currentInstruction[2] != 0) {
+                if (!touchedDataMemory.contains(currentInstruction[2])) {
+                    touchedDataMemory.add(currentInstruction[2]);
+                }
+            }
+
+            if ((currentInstruction[3] != 0 ) && (currentInstruction[1] == Instructions.DAT.getOpcode())) {
+                if (!touchedDataMemory.contains(currentInstruction[3])) {
+                    touchedDataMemory.add(currentInstruction[3]);
+                }
+            }
+
+            // Executing the Instruction
 
             switch (instruction) {
                 case ADD -> accumulator += dataMemory[currentInstruction[2]];
@@ -79,31 +104,41 @@ public class RAL_CPU {
         return instruction;
     }
 
+    private int decodeOnlyInstruction(int instruction) {
+        int decodedOpcode = instruction & 0x00FF0000 >> 16;
+        return decodedOpcode;
+    }
+
     /**
      * Prints the contents of the program memory and data memory.
-     * The program memory is printed in rows of the specified rowSize,
-     * with each row starting with the memory address in hexadecimal format
-     * and followed by the corresponding value in hexadecimal format.
-     * The data memory is printed in the same format.
+     * The program memory is printed in the specified number of Columns.
      */
     private void printMemory() {
-        int rowSize = 16; // change this to modify the row size
-        System.out.println("Program Memory:");
-        for (int i = 0; i < programMemory.length; i++) {
-            if (i % rowSize == 0)
-                System.out.print("\n" + "0x" + Integer.toHexString(i));
-            else
-                System.out.print(", " + "0x" + Integer.toHexString(i));
-            System.out.print(": " + Integer.toHexString(programMemory[i]));
+        int col = 0; // column counter
+        int colsPerRow = 5; // number of columns in a row - adjust as needed
+
+        System.out.println("Program Memory : ");
+
+        for (int address : touchedProgMemory) {
+            System.out.print("0x" + Integer.toHexString(address) + " : 0x" + Integer.toHexString(programMemory[address]) + "\t");
+            col++;
+
+            if (col >= colsPerRow) {
+                col = 0;
+                System.out.println();
+            }
         }
 
-        System.out.println("\nData Memory:");
-        for (int i = 0; i < dataMemory.length; i++) {
-            if (i % rowSize == 0)
-                System.out.print("\n" + "0x" + Integer.toHexString(i));
-            else
-                System.out.print(", " + "0x" + Integer.toHexString(i));
-            System.out.print(": " + Integer.toHexString(dataMemory[i]));
+        System.out.println("\n \n Data Memory");
+
+        for (int address : touchedDataMemory) {
+            System.out.print("0x" + Integer.toHexString(address) + " : 0x" + Integer.toHexString(dataMemory[address]) + "\t");
+            col++;
+
+            if (col >= colsPerRow) {
+                col = 0;
+                System.out.println();
+            }
         }
     }
 
