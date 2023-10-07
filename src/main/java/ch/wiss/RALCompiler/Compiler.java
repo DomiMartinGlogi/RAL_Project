@@ -70,6 +70,9 @@ public class Compiler {
             FileOutputStream outputStream = new FileOutputStream(outputFile);
 
             while(inputStream.ready()) {
+                if (lineNumber >= 1024) {
+                    errorHandler("Program is too long");
+                }
                 String line = inputStream.readLine();
                 String outputLine = parseLine(line);
                 outputStream.write(outputLine.getBytes());
@@ -114,6 +117,13 @@ public class Compiler {
             addressArg = lineParts.length > 1 ? lineParts[1] : "";
             if(instruction.equals("DAT")) {
                 dataArg = lineParts.length > 2 ? lineParts[2] : "";
+                if ((Integer.parseUnsignedInt(addressArg) > 256) || (Integer.parseUnsignedInt(dataArg) > 256)) {
+                    errorHandler("Attempting to access inaccessible Memory on line : " + lineNumber);
+                }
+            } else {
+                if (Integer.parseUnsignedInt(addressArg) > 1024) {
+                    errorHandler("Attempting to access inaccessible Memory on line : " + lineNumber);
+                }
             }
         }
 
