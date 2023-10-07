@@ -23,6 +23,7 @@ class CompilerTest {
     @Test
     void testParseLine() {
         assertEquals("0x800100\n",      Compiler.parseLine("ADD 1"));
+        assertEquals("0x800100\n",      Compiler.parseLine("ADD 1 ; Test Comment"));
         assertEquals("0x400200\n",      Compiler.parseLine("SUB 2"));
         assertEquals("0x10300\n",       Compiler.parseLine("STA 3"));
         assertEquals("0x30100\n",       Compiler.parseLine("STI 1"));

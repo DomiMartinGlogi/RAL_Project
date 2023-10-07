@@ -107,7 +107,7 @@ public class Compiler {
         if (line.length() == 0 || line.startsWith("\n")) {
             return "\n";
         }
-
+        line = line.split(";")[0];
         String[] lineParts = line.split(" ");
         String instruction = lineParts.length > 0 ? lineParts[0] : "";
         String addressArg = "";
