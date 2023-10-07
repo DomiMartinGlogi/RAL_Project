@@ -14,7 +14,9 @@ The goal of this Project is to write a simple RAL CPU in Java. The CPU is curren
 - No native bitwise operations
 - No native stack support
 - No native subroutine support
-- No native I/O support
+- Some Native I/O Support
+  - Printing to Console supported
+  - No Input Support
 - No native interrupts
 - Only unsigned integer support
 - MSB first memory layout
@@ -39,6 +41,8 @@ The instruction set is planned to encompass 10 Instructions. The instructions ar
 - `JMZ x` - Jump to instruction at memory address `x` if the accumulator is zero
 - `HLT`   - Halt the program
 - `DAT x y` - Store the 8-bit value `y` at 8-bit memory address `x`
+- `NOP` - Stops the Execution for one cycle
+- `PRN` - Print the value of the accumulator to the console
 
 #### Instruction Encoding
 
@@ -56,19 +60,29 @@ Instructions are encoded as hexadecimal values. The encoding is planned to be th
 | `JMZ`       | `0b0010 0000` |
 | `HLT`       | `0b1111 1111` |
 | `DAT`       | `0b0101 1010` |
+| `NOP`       | `0b0000 0000` |
+| `PRN`       | `0b1000 0000` |
 
 The instructions will consist of 1 16-bit verb and 1 16-bit argument. The verb will be the first 16 bits of the instruction, the argument will be the last 16 bits of the instruction.
 
 #### Future Expansion
 
 The instruction set is planned to be expanded in the future to include the following instructions:
-- `NOP` - No Operation
-- `PRN` - Print the value of the accumulator to the console
 - `INP` - Read a value from the console into the accumulator
 
 As well as the following instructions for conditional jumps, however these can only be used to target addresses of at most 8-Bit.
 - `JMG x y` - Jump to instruction at memory address `x` if the accumulator is greater than `y`
 - `JML x y` - Jump to instruction at memory address `x` if the accumulator is less than `y`
+
+#### Further information
+
+In addition to writing code, you can also incorporate inline comments for readability 
+and better understanding. 
+These inline comments start with a semicolon `;` and extend to the new line character `\n`, 
+providing context and explanation for the associated code.
+
+Additionally, the compiler will abort Compilation and alert the user if access to an invalid Data Memory Location or
+Program Memory Location is detected. If code exceeds the maximum word count, the compilation is aborted as well.
 
 ### Memory
 

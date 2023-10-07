@@ -10,7 +10,9 @@ public enum Instructions {
     JMP(0b0001_0000),
     JMZ(0b0011_0000),
     DAT(0b0101_1010),
-    HLT(0b1111_1111);
+    HLT(0b1111_1111),
+    NOP(0b0000_0000),
+    PRN(0b1000_0000);
 
     private final int opcode;
 

@@ -34,7 +34,9 @@ public class Compiler {
             Map.entry("JMP", 0b0001_0000),
             Map.entry("JMZ", 0b0011_0000),
             Map.entry("DAT", 0b0101_1010),
-            Map.entry("HLT", 0b1111_1111));
+            Map.entry("HLT", 0b1111_1111),
+            Map.entry("NOP", 0b0000_0000),
+            Map.entry("PRN", 0b1000_0000));
 
 
     /**
@@ -68,6 +70,9 @@ public class Compiler {
             FileOutputStream outputStream = new FileOutputStream(outputFile);
 
             while(inputStream.ready()) {
+                if (lineNumber >= 1024) {
+                    errorHandler("Program is too long");
+                }
                 String line = inputStream.readLine();
                 String outputLine = parseLine(line);
                 outputStream.write(outputLine.getBytes());
@@ -96,12 +101,13 @@ public class Compiler {
      *
      * @param line The line of assembly code to parse.
      * @return The hexadecimal instruction.
+     * @note Neither Public, nor private so it can get tested in Unit Tests
      */
-    private static @NotNull String parseLine(@NotNull String line) {
+    static @NotNull String parseLine(@NotNull String line) {
         if (line.length() == 0 || line.startsWith("\n")) {
             return "\n";
         }
-
+        line = line.split(";")[0];
         String[] lineParts = line.split(" ");
         String instruction = lineParts.length > 0 ? lineParts[0] : "";
         String addressArg = "";
@@ -111,6 +117,14 @@ public class Compiler {
             addressArg = lineParts.length > 1 ? lineParts[1] : "";
             if(instruction.equals("DAT")) {
                 dataArg = lineParts.length > 2 ? lineParts[2] : "";
+                if (((checkIfNumeric(addressArg) && Integer.parseUnsignedInt(addressArg) > 256))
+                        || (checkIfNumeric(dataArg) && Integer.parseUnsignedInt(dataArg) > 256)) {
+                    errorHandler("Attempting to access inaccessible Memory on line : " + lineNumber);
+                }
+            } else {
+                if (checkIfNumeric(addressArg) && Integer.parseUnsignedInt(addressArg) > 1024) {
+                    errorHandler("Attempting to access inaccessible Memory on line : " + lineNumber);
+                }
             }
         }
 
@@ -126,7 +140,7 @@ public class Compiler {
                 resultHex = getHexValue(instruction, addressArg);
                 resultHex <<= 8;
                 break;
-            case "HLT":
+            case "HLT", "NOP", "PRN":
                 resultHex = instructionSet.get(instruction);
                 resultHex <<= 16;
                 break;
@@ -186,5 +200,14 @@ public class Compiler {
         resultHex |= Integer.parseUnsignedInt(dataArg);
 
         return resultHex;
+    }
+
+    private static boolean checkIfNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 }
