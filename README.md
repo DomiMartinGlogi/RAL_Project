@@ -89,15 +89,24 @@ The Data Memory has no special structure and purely contains 32-bit unsigned int
 
 #### Functional Diagram
 
-![RAL_Compiler-Function Diagram.drawio.png](mdRessources%2Fimg%2FRAL_Compiler-Function%20Diagram.drawio.png)
+![RAL_Compiler-Function-Diagram.drawio.png](mdRessources/img/RAL_Compiler-Function-Diagram.drawio.png)
 
 #### Class Diagram
 
-![RAL_Compiler-Class Diagram.png](mdRessources%2FRAL_Compiler-Class%20Diagram.png)
+![RAL_Compiler-Class-Diagram.png](mdRessources/img/RALCompilerClassDiagram.png)
 
 ### CPU
 
+#### Architecture
+
+![RAL_Compiler-CPU-Architecture.drawio.png](mdRessources/img/RAL_Compiler-CPU-Architecture.drawio.png)
+
 #### Functional Diagram
+
+
+
+#### Class Diagram
+
 
 # Tools Used
 
