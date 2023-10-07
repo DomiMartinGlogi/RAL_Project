@@ -117,11 +117,12 @@ public class Compiler {
             addressArg = lineParts.length > 1 ? lineParts[1] : "";
             if(instruction.equals("DAT")) {
                 dataArg = lineParts.length > 2 ? lineParts[2] : "";
-                if ((Integer.parseUnsignedInt(addressArg) > 256) || (Integer.parseUnsignedInt(dataArg) > 256)) {
+                if (((checkIfNumeric(addressArg) && Integer.parseUnsignedInt(addressArg) > 256))
+                        || (checkIfNumeric(dataArg) && Integer.parseUnsignedInt(dataArg) > 256)) {
                     errorHandler("Attempting to access inaccessible Memory on line : " + lineNumber);
                 }
             } else {
-                if (Integer.parseUnsignedInt(addressArg) > 1024) {
+                if (checkIfNumeric(addressArg) && Integer.parseUnsignedInt(addressArg) > 1024) {
                     errorHandler("Attempting to access inaccessible Memory on line : " + lineNumber);
                 }
             }
@@ -199,5 +200,14 @@ public class Compiler {
         resultHex |= Integer.parseUnsignedInt(dataArg);
 
         return resultHex;
+    }
+
+    private static boolean checkIfNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 }
