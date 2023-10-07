@@ -14,7 +14,9 @@ The goal of this Project is to write a simple RAL CPU in Java. The CPU is curren
 - No native bitwise operations
 - No native stack support
 - No native subroutine support
-- No native I/O support
+- Some Native I/O Support
+  - Printing to Console supported
+  - No Input Support
 - No native interrupts
 - Only unsigned integer support
 - MSB first memory layout
@@ -71,6 +73,16 @@ The instruction set is planned to be expanded in the future to include the follo
 As well as the following instructions for conditional jumps, however these can only be used to target addresses of at most 8-Bit.
 - `JMG x y` - Jump to instruction at memory address `x` if the accumulator is greater than `y`
 - `JML x y` - Jump to instruction at memory address `x` if the accumulator is less than `y`
+
+#### Further information
+
+In addition to writing code, you can also incorporate inline comments for readability 
+and better understanding. 
+These inline comments start with a semicolon `;` and extend to the new line character `\n`, 
+providing context and explanation for the associated code.
+
+Additionally, the compiler will abort Compilation and alert the user if access to an invalid Data Memory Location or
+Program Memory Location is detected. If code exceeds the maximum word count, the compilation is aborted as well.
 
 ### Memory
 

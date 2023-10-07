@@ -70,6 +70,9 @@ public class Compiler {
             FileOutputStream outputStream = new FileOutputStream(outputFile);
 
             while(inputStream.ready()) {
+                if (lineNumber >= 1024) {
+                    errorHandler("Program is too long");
+                }
                 String line = inputStream.readLine();
                 String outputLine = parseLine(line);
                 outputStream.write(outputLine.getBytes());
@@ -104,7 +107,7 @@ public class Compiler {
         if (line.length() == 0 || line.startsWith("\n")) {
             return "\n";
         }
-
+        line = line.split(";")[0];
         String[] lineParts = line.split(" ");
         String instruction = lineParts.length > 0 ? lineParts[0] : "";
         String addressArg = "";
@@ -114,6 +117,14 @@ public class Compiler {
             addressArg = lineParts.length > 1 ? lineParts[1] : "";
             if(instruction.equals("DAT")) {
                 dataArg = lineParts.length > 2 ? lineParts[2] : "";
+                if (((checkIfNumeric(addressArg) && Integer.parseUnsignedInt(addressArg) > 256))
+                        || (checkIfNumeric(dataArg) && Integer.parseUnsignedInt(dataArg) > 256)) {
+                    errorHandler("Attempting to access inaccessible Memory on line : " + lineNumber);
+                }
+            } else {
+                if (checkIfNumeric(addressArg) && Integer.parseUnsignedInt(addressArg) > 1024) {
+                    errorHandler("Attempting to access inaccessible Memory on line : " + lineNumber);
+                }
             }
         }
 
@@ -189,5 +200,14 @@ public class Compiler {
         resultHex |= Integer.parseUnsignedInt(dataArg);
 
         return resultHex;
+    }
+
+    private static boolean checkIfNumeric(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
     }
 }
