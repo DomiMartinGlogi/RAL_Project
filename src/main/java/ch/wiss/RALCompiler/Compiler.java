@@ -98,8 +98,9 @@ public class Compiler {
      *
      * @param line The line of assembly code to parse.
      * @return The hexadecimal instruction.
+     * @note Neither Public, nor private so it can get tested in Unit Tests
      */
-    private static @NotNull String parseLine(@NotNull String line) {
+    static @NotNull String parseLine(@NotNull String line) {
         if (line.length() == 0 || line.startsWith("\n")) {
             return "\n";
         }
