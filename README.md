@@ -107,6 +107,7 @@ The Data Memory has no special structure and purely contains 32-bit unsigned int
 
 #### Class Diagram
 
+![RALVM-Class-Diagram.png](mdRessources/img/RALVM-Class-Diagram.png)
 
 # Tools Used
 
