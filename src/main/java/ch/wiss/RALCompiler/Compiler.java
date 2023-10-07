@@ -34,7 +34,9 @@ public class Compiler {
             Map.entry("JMP", 0b0001_0000),
             Map.entry("JMZ", 0b0011_0000),
             Map.entry("DAT", 0b0101_1010),
-            Map.entry("HLT", 0b1111_1111));
+            Map.entry("HLT", 0b1111_1111),
+            Map.entry("NOP", 0b0000_0000),
+            Map.entry("PRN", 0b1000_0000));
 
 
     /**
@@ -126,7 +128,7 @@ public class Compiler {
                 resultHex = getHexValue(instruction, addressArg);
                 resultHex <<= 8;
                 break;
-            case "HLT":
+            case "HLT", "NOP", "PRN":
                 resultHex = instructionSet.get(instruction);
                 resultHex <<= 16;
                 break;
