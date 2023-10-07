@@ -83,6 +83,12 @@ public class RAL_CPU {
                     break;
                 }
                 case DAT -> dataMemory[currentInstruction[2]] = currentInstruction[3];
+                case NOP -> {
+                    break;
+                }
+                case PRN -> {
+                    System.out.println(accumulator);
+                }
             }
             programCounter++;
         }
