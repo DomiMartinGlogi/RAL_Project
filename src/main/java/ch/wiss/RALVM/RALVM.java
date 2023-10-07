@@ -3,6 +3,7 @@ package ch.wiss.RALVM;
 import java.io.*;
 import java.util.Scanner;
 
+import static org.fusesource.jansi.Ansi.Color.GREEN;
 import static org.fusesource.jansi.Ansi.Color.RED;
 import static org.fusesource.jansi.Ansi.ansi;
 
@@ -18,6 +19,10 @@ public class RALVM {
      * @param file the file to parse and execute
      */
     public static void run(String file) {
+        System.out.println(ansi().fg(GREEN).a("RAL VM").reset());
+        System.out.println(ansi().fg(GREEN).a("Version 0.5").reset());
+        System.out.println(ansi().fg(GREEN).a("Created by:").reset());
+        System.out.println(ansi().fg(GREEN).a("    - Dominik M. Glogowski").reset());
         System.out.println("Parsing " + file);
 
         File inputFile = new File(file);

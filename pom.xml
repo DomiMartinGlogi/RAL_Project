@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ch.wiss</groupId>
-    <artifactId>RAL_Project</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>RAL</artifactId>
+    <version>0.5</version>
 
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
