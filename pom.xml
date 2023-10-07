@@ -6,7 +6,7 @@
 
     <groupId>ch.wiss</groupId>
     <artifactId>RAL</artifactId>
-    <version>0.5</version>
+    <version>0.6dev</version>
 
     <properties>
         <maven.compiler.source>19</maven.compiler.source>
