@@ -48,7 +48,7 @@ public class Compiler {
     public static void compile(String file) {
         AnsiConsole.systemInstall();
         System.out.println(ansi().fg(GREEN).a("RAL Compiler").reset());
-        System.out.println(ansi().fg(GREEN).a("Version 0.5").reset());
+        System.out.println(ansi().fg(GREEN).a("Version 0.6").reset());
         System.out.println(ansi().fg(GREEN).a("Created by:").reset());
         System.out.println(ansi().fg(GREEN).a("    - Dominik M. Glogowski").reset());
         inputFile = new File(file);

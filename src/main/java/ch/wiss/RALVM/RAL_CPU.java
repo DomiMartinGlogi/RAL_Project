@@ -54,12 +54,6 @@ public class RAL_CPU {
                 }
             }
 
-            if ((currentInstruction[3] != 0 ) && (currentInstruction[1] == Instructions.DAT.getOpcode())) {
-                if (!touchedDataMemory.contains(currentInstruction[3])) {
-                    touchedDataMemory.add(currentInstruction[3]);
-                }
-            }
-
             // Executing the Instruction
 
             switch (instruction) {
