@@ -1,0 +1,6 @@
+DAT 0 0  ; Initial data at address 0.
+DAT 1 5  ; Initial data at address 1.
+LDA 1    ; Load value at address 1 into the accumulator.
+JMZ 5    ; Jump to address 5 if accumulator is 0.
+STA 1    ; Store value of accumulator in location 1.
+HLT      ; Halts the program.

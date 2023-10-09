@@ -1,0 +1,7 @@
+DAT 0 5  ; Initial data at address 0.
+DAT 2 3  ; Address to store value at address 3.
+LDA 0    ; Load value at address 0 into the accumulator.
+STI 2    ; Store value of accumulator in address stored in address 2.
+LDI 2
+PRN
+HLT      ; Halts the program.
