@@ -20,7 +20,7 @@ public class RALVM {
      */
     public static void run(String file) {
         System.out.println(ansi().fg(GREEN).a("RAL VM").reset());
-        System.out.println(ansi().fg(GREEN).a("Version 0.5").reset());
+        System.out.println(ansi().fg(GREEN).a("Version 0.6").reset());
         System.out.println(ansi().fg(GREEN).a("Created by:").reset());
         System.out.println(ansi().fg(GREEN).a("    - Dominik M. Glogowski").reset());
         System.out.println("Parsing " + file);
